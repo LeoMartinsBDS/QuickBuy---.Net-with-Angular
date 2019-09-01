@@ -13,6 +13,8 @@ namespace QuickBuy.Domain.Entities
 
         public int UsuarioId { get; set; }
 
+        public virtual User Usuario { get; set; }
+
         public DateTime DataPrevisaoEntrega { get; set; }
 
         public string CEP { get; set; }
@@ -27,12 +29,12 @@ namespace QuickBuy.Domain.Entities
 
         public int FormaPagamentoId { get; set; }
 
-        public FormaPagamento FormaPagamento { get; set; }
+        public virtual FormaPagamento FormaPagamento { get; set; }
 
         /// <summary>
         /// Pedido deve ter pelo menos um pedido ou muitos pedidos
         /// </summary>
-        public ICollection<OrderItem> ItensPedido { get; set; }
+        public virtual ICollection<OrderItem> ItensPedido { get; set; }
 
         public override void Validate()
         {

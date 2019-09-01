@@ -14,12 +14,11 @@ namespace QuickBuy.Domain.Entities
         public string Nome { get; set; }
 
         public string SobreNome { get; set; }
-
-
+        
         /// <summary>
         /// Um usuário pode ter nenhum ou muitos pedidos
         /// </summary>
-        public ICollection<Order> Pedidos { get; set; }
+        public virtual ICollection<Order> Pedidos { get; set; }
 
         public override void Validate()
         {
