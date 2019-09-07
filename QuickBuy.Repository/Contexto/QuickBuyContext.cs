@@ -6,7 +6,7 @@ using QuickBuy.Repository.Config;
 
 namespace QuickBuy.Repository.Contexto
 {
-    public class QuickBuyContext: DbContext
+    public class QuickBuyContext : DbContext
     {
         public DbSet<User> Usuarios { get; set; }
 
@@ -30,6 +30,28 @@ namespace QuickBuy.Repository.Contexto
             modelBuilder.ApplyConfiguration(new ItemPedidoConfiguration());
             modelBuilder.ApplyConfiguration(new ProdutoConfiguration());
             modelBuilder.ApplyConfiguration(new FormaPagamentoConfiguration());
+
+            modelBuilder.Entity<FormaPagamento>().HasData(
+                new FormaPagamento()
+                {
+                    Id = 1,
+                    Nome = "Boleto",
+                    Descricao = "Forma de Pagamento Boleto"
+                },
+                new FormaPagamento()
+                {
+                    Id = 2,
+                    Nome = "Cartão de Crédito",
+                    Descricao = "Forma de Pagamento Cartão de Crédito"
+                },
+                new FormaPagamento()
+                {
+                    Id = 3,
+                    Nome = "Depósito",
+                    Descricao = "Forma de Pagamento Depósito"
+                }
+                );
+
             base.OnModelCreating(modelBuilder);
         }
     }
