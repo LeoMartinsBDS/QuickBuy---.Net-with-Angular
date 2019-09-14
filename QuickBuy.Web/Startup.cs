@@ -82,7 +82,7 @@ namespace QuickBuy.Web
                     spa.UseAngularCliServer(npmScript: "start");
 
                     /*descomentar essa linha caso for subir servidor angular via cmd*/
-                    //spa.UseProxyToSpaDevelopmentServer("http://localhost:4200/");
+                    spa.UseProxyToSpaDevelopmentServer("http://localhost:4200/");
                 }
             });
         }
