@@ -79,7 +79,7 @@ namespace QuickBuy.Web
 
                 if (env.IsDevelopment())
                 {
-                    spa.UseAngularCliServer(npmScript: "start");
+                    //spa.UseAngularCliServer(npmScript: "start");
 
                     /*descomentar essa linha caso for subir servidor angular via cmd*/
                     spa.UseProxyToSpaDevelopmentServer("http://localhost:4200/");
