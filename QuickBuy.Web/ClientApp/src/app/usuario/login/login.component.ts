@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { Usuario } from "../../model/usuario";
 import { Router, ActivatedRoute } from "@angular/router";
+import { UsuarioServico } from "../../servicos/usuario/usuario.servico";
 
 @Component({
   selector: "app-login",
@@ -12,8 +13,10 @@ export class LoginComponent implements OnInit {
   
   public usuario;
   public returnUrl: string;
+  public mensagem: string;
+  private ativarSpinner: boolean;
 
-  constructor(private router: Router, private activatedRouter: ActivatedRoute) {
+  constructor(private router: Router, private activatedRouter: ActivatedRoute, private usuarioServico: UsuarioServico) {
   }
 
   ngOnInit(): void {
@@ -22,9 +25,24 @@ export class LoginComponent implements OnInit {
   }
 
   entrar() {
-    if (this.usuario.email == "leo@teste.com" && this.usuario.senha == "123") {
-      sessionStorage.setItem("usuario-autenticado", "1");
-      this.router.navigate([this.returnUrl]);
-    }
+
+    this.ativarSpinner = true;
+    this.usuarioServico.verificarUsuario(this.usuario).subscribe(
+      data => {
+        this.usuarioServico.usuario = data;
+
+        if (this.returnUrl == null) {
+          this.router.navigate(['/']);
+        }
+        else {
+          this.router.navigate([this.returnUrl]);
+        }
+        
+      },
+      err => {
+        this.mensagem = err.error;
+        this.ativarSpinner = false;
+      }
+    );
   }
 }
