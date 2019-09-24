@@ -19,8 +19,12 @@
 
   <ItemGroup>
     <!-- Don't publish the SPA source files, but do show them in the project files list -->
+    <Compile Remove="ClientApp\src\autorizacao\**" />
     <Content Remove="$(SpaRoot)**" />
+    <Content Remove="ClientApp\src\autorizacao\**" />
+    <EmbeddedResource Remove="ClientApp\src\autorizacao\**" />
     <None Remove="$(SpaRoot)**" />
+    <None Remove="ClientApp\src\autorizacao\**" />
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
   </ItemGroup>
 
