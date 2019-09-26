@@ -9,7 +9,9 @@ import { ProdutoServico } from "../servicos/produto/produto.servico";
 })
 //export é parecido com o public
 export class ProdutoComponent implements OnInit {//Nome das classes começando com maisculo por conta da convenção Pascalcase
+
   public produto: Produto
+  public arquivoSelecionado: File;
 
   constructor(private produtoServico: ProdutoServico) {
 
@@ -19,15 +21,27 @@ export class ProdutoComponent implements OnInit {//Nome das classes começando c
     this.produto = new Produto();
   }
 
+  public inputChange(files: FileList) {
+
+    this.arquivoSelecionado = files.item(0);
+    this.produtoServico.enviarArquivo(this.arquivoSelecionado)
+      .subscribe(
+        retorno => {
+        },
+        e => {
+        }
+      );
+  }
+
   public cadastrar() {
     this.produtoServico.cadastrar(this.produto)
       .subscribe(
-      produtoRetorno => {
+        produtoRetorno => {
 
-      },
-      e => {
-          
-      }
+        },
+        e => {
+
+        }
       );
   }
 }
