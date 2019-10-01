@@ -12,6 +12,8 @@ export class ProdutoComponent implements OnInit {//Nome das classes começando c
 
   public produto: Produto
   public arquivoSelecionado: File;
+  public ativarSpinner: boolean;
+  public mensagem: string;
 
   constructor(private produtoServico: ProdutoServico) {
 
@@ -24,24 +26,39 @@ export class ProdutoComponent implements OnInit {//Nome das classes começando c
   public inputChange(files: FileList) {
 
     this.arquivoSelecionado = files.item(0);
+    this.ativarEspera();
     this.produtoServico.enviarArquivo(this.arquivoSelecionado)
       .subscribe(
-        retorno => {
+        retornoArquivo => {
+          this.produto.nomeArquivo = retornoArquivo;
+          alert(retornoArquivo);
+          this.desativarEspera();
         },
         e => {
+          this.desativarEspera();
         }
       );
   }
 
   public cadastrar() {
+    this.ativarEspera();
     this.produtoServico.cadastrar(this.produto)
       .subscribe(
         produtoRetorno => {
-
+          this.desativarEspera();
         },
         e => {
-
+          this.mensagem = e.error;
+          this.desativarEspera();
         }
       );
+  }
+
+  public ativarEspera() {
+    this.ativarSpinner = true;
+  }
+
+  public desativarEspera() {
+    this.ativarSpinner = false;
   }
 }

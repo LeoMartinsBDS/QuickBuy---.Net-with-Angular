@@ -41,6 +41,11 @@ namespace QuickBuy.Web.Controllers
         {
             try
             {
+                produto.Validate();
+                if (!produto.EhValido)
+                {
+                    return BadRequest(produto.ObterMensagensValidacao());
+                }
                 _produtoRepositorio.Adicionar(produto);
 
                 return Created("api/produto", produto);
@@ -59,9 +64,7 @@ namespace QuickBuy.Web.Controllers
                 var formFile = _httpContextAccessor.HttpContext.Request.Form.Files["arquivoEnviado"];
                 string nomeArquivo = formFile.FileName;
                 string extensao = nomeArquivo.Split(".").Last();
-                char[] arrayNomeCompacto = Path.GetFileNameWithoutExtension(nomeArquivo).Take(10).ToArray();
-                var novoNomeArquivo = new string(arrayNomeCompacto).Replace(" ", "-") + "." + extensao;
-
+                string novoNomeArquivo = GerarNovoNomeArquivo(nomeArquivo, extensao);
                 string nomeCompleto = Path.Combine(_hostEnvironment.WebRootPath, "arquivos", novoNomeArquivo);
 
                 using (var streamArquivo = new FileStream(nomeCompleto, FileMode.Create))
@@ -69,12 +72,20 @@ namespace QuickBuy.Web.Controllers
                     formFile.CopyTo(streamArquivo);
                 }
 
-                return Ok();
+                return Json(novoNomeArquivo);
             }
             catch (Exception ex)
             {
                 return BadRequest(ex.ToString());
             }
+        }
+
+        private static string GerarNovoNomeArquivo(string nomeArquivo, string extensao)
+        {
+            char[] arrayNomeCompacto = Path.GetFileNameWithoutExtension(nomeArquivo).Take(10).ToArray();
+            var novoNomeArquivo = new string(arrayNomeCompacto).Replace(" ", "-");
+            novoNomeArquivo = $"{novoNomeArquivo}{DateTime.Now.Year}{DateTime.Now.Month}{DateTime.Now.Day}{DateTime.Now.Hour}{DateTime.Now.Minute}{DateTime.Now.Second}.{extensao}";
+            return novoNomeArquivo;
         }
     }
 }

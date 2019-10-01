@@ -64,4 +64,11 @@
   </div>
 </div>
 
-<button class="btn btn-primary" (click)="cadastrar">Cadastrar</button>
+<button class="btn btn-primary mb-2" (click)="cadastrar()" [disabled]="ativarSpinner">
+  <span class="spinner-border spinner-border-sm" *ngIf="ativarSpinner"></span>
+  Cadastrar
+</button>
+
+<div class="alert alert-danger col-md-4" *ngIf="mensagem">
+  {{mensagem}}
+</div>
