@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core"
 import { Produto } from "../model/Produto";
 import { ProdutoServico } from "../servicos/produto/produto.servico";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-produto",//defino o nome da tag onde o componente será renderizado.
@@ -15,7 +16,7 @@ export class ProdutoComponent implements OnInit {//Nome das classes começando c
   public ativarSpinner: boolean;
   public mensagem: string;
 
-  constructor(private produtoServico: ProdutoServico) {
+  constructor(private produtoServico: ProdutoServico, private router: Router) {
 
   }
 
@@ -31,7 +32,6 @@ export class ProdutoComponent implements OnInit {//Nome das classes começando c
       .subscribe(
         retornoArquivo => {
           this.produto.nomeArquivo = retornoArquivo;
-          alert(retornoArquivo);
           this.desativarEspera();
         },
         e => {
@@ -46,6 +46,7 @@ export class ProdutoComponent implements OnInit {//Nome das classes começando c
       .subscribe(
         produtoRetorno => {
           this.desativarEspera();
+          this.router.navigate(['./pesquisarProduto']);
         },
         e => {
           this.mensagem = e.error;
