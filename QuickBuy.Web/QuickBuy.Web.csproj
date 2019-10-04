@@ -42,6 +42,7 @@
     <None Remove="ClientApp\src\app\counter\counter.component.ts" />
     <None Remove="ClientApp\src\app\fetch-data\fetch-data.component.html" />
     <None Remove="ClientApp\src\app\fetch-data\fetch-data.component.ts" />
+    <None Remove="ClientApp\src\app\loja\pesquisa\loja.pesquisa.component.ts" />
     <None Remove="ClientApp\src\app\model\Produto.ts" />
     <None Remove="ClientApp\src\app\model\usuario.ts" />
     <None Remove="ClientApp\src\app\produto\pesquisa\pesquisa.produto.component.ts" />
@@ -57,6 +58,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\src\app\loja\pesquisa\loja.pesquisa.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\model\produto.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\model\usuario.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\produto\pesquisa\pesquisa.produto.component.ts" />
