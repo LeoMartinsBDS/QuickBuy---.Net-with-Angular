@@ -30,20 +30,25 @@
            }"
        [(ngModel)]="produto.descricao"
        #descricao="ngModel"
-       required />
+       required
+       minlength="50" />
 
 <div class="invalid-feedback mb-2" *ngIf="descricao.invalid  && (descricao.dirty || descricao.touched)">
   <div *ngIf="descricao.errors.required">
     Descrição do Produto é de preenchimento obrigatório.
   </div>
+  <div *ngIf="descricao.errors.minlength">
+    Campo deve ter no minímo 50 caracteres.
+  </div>
 </div>
+
 
 <label for="inputPreco" class="sr-only">Preço</label>
 <input type="number" id="inputPreco"
        name="preco"
        placeholder="Preço"
        class="form-control mb-2 col-md-4"
-        [ngClass]="{
+       [ngClass]="{
             'is-invalid':preco.invalid && (preco.dirty || preco.touched),
             'is-valid':preco.valid && (preco.dirty || preco.touched)
            }"
@@ -59,7 +64,7 @@
 
 <div class="input-group mb-2">
   <div class="custom-file col-md-4">
-    <input type="file" class="custom-file-input" id="inputFile" (change)="inputChange($event.target.files)"/>
+    <input type="file" class="custom-file-input" id="inputFile" (change)="inputChange($event.target.files)" />
     <label for="inputFile" class="custom-file-label">Escolha uma foto para o produto</label>
   </div>
 </div>
@@ -69,7 +74,7 @@
     <span class="spinner-border spinner-border-sm" *ngIf="ativarSpinner"></span>
     Cadastrar
   </button>
-  <button class="btn btn-secondary" (click)="cancelar()" [routerLink]="['/pesquisarProduto']">
+  <button class="btn btn-secondary" [routerLink]="['/pesquisarProduto']">
     Cancelar
   </button>
 </div>
