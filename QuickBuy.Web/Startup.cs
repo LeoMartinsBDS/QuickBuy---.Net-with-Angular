@@ -42,11 +42,15 @@ namespace QuickBuy.Web
             services.AddScoped<IProdutoRepositorio, ProdutoRepositorio>();
             services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
 
-            // In production, the Angular files will be served from this directory
-            services.AddSpaStaticFiles(configuration =>
+            ServiceProvider serviceProvider = services.BuildServiceProvider();
+            IHostingEnvironment env = serviceProvider.GetService<IHostingEnvironment>();
+            if (env.IsProduction())
             {
-                configuration.RootPath = "ClientApp/dist";
-            });
+                services.AddSpaStaticFiles(configuration =>
+                {
+                    configuration.RootPath = "ClientApp/dist";
+                });
+            }
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -62,10 +66,15 @@ namespace QuickBuy.Web
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-
+            
             app.UseHttpsRedirection();
-            app.UseStaticFiles();
-            app.UseSpaStaticFiles();
+
+            if (env.IsProduction())
+            {
+                app.UseStaticFiles();
+                app.UseSpaStaticFiles();
+            }
+            
 
             app.UseMvc(routes =>
             {
