@@ -34,6 +34,10 @@ namespace QuickBuy.Repository.Config
             builder
                 .HasMany(u => u.Pedidos)
                 .WithOne(p => p.Usuario);
+
+            builder
+                 .HasMany(u => u.Comentarios)
+                 .WithOne(p => p.Usuario);
             
         }
     }

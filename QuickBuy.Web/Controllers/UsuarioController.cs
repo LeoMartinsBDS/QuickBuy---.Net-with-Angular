@@ -57,6 +57,8 @@ namespace QuickBuy.Web.Controllers
                 if (usuarioCadastrado != null)
                     return BadRequest("Email já cadastrado");
 
+                usuario.Administrador = true;
+
                  _usuarioRepositorio.Adicionar(usuario);
 
                 return Ok();

@@ -14,11 +14,14 @@ namespace QuickBuy.Domain.Entities
         public string Nome { get; set; }
 
         public string SobreNome { get; set; }
-        
+
+        public bool Administrador { get; set; }
         /// <summary>
         /// Um usuário pode ter nenhum ou muitos pedidos
         /// </summary>
         public virtual ICollection<Order> Pedidos { get; set; }
+
+        public virtual ICollection<Comments> Comentarios { get; set; }
 
         public override void Validate()
         {

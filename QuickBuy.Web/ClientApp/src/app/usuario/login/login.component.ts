@@ -10,7 +10,7 @@ import { UsuarioServico } from "../../servicos/usuario/usuario.servico";
 })
 
 export class LoginComponent implements OnInit {
-  
+
   public usuario;
   public returnUrl: string;
   public mensagem: string;
@@ -33,11 +33,9 @@ export class LoginComponent implements OnInit {
 
         if (this.returnUrl == null) {
           this.router.navigate(['/']);
-        }
-        else {
+        } else {
           this.router.navigate([this.returnUrl]);
         }
-        
       },
       err => {
         this.mensagem = err.error;

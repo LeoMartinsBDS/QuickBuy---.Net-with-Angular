@@ -26,6 +26,10 @@ export class UsuarioServico {
     return this._usuario != null && this.usuario.email != "" && this.usuario.senha != "";
   }
 
+  public usuario_administrador(): boolean {
+    return this.usuario_autenticado() && this.usuario.administrador;
+  }
+
   public limpar_sessao() {
     sessionStorage.setItem("usuario-autenticado", "");
     this._usuario = null;
@@ -40,12 +44,12 @@ export class UsuarioServico {
   }
 
   public cadastrarUsuario(usuario: Usuario): Observable<Usuario> {
-    
+
     return this.http.post<Usuario>(this.baseURL + "api/usuario", JSON.stringify(usuario), { headers: this.headers });
   }
 
   public verificarUsuario(usuario: Usuario): Observable<Usuario> {
-    
+
     return this.http.post<Usuario>(this.baseURL + "api/usuario/VerificarUsuario", JSON.stringify(usuario), { headers: this.headers });
   }
 

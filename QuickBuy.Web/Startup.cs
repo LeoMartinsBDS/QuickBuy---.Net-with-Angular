@@ -68,10 +68,10 @@ namespace QuickBuy.Web
             }
             
             app.UseHttpsRedirection();
+            app.UseStaticFiles();
 
             if (env.IsProduction())
             {
-                app.UseStaticFiles();
                 app.UseSpaStaticFiles();
             }
             
